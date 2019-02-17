@@ -3,40 +3,46 @@
 
 #include <cstddef>
 #include <cstdint>
-#include <ctime>
+#include <chrono>
 
 namespace kaa
 {
-    enum min_ver { ZERO = 0 };
-    enum maj_ver { ONE = 1 };
+	typedef std::chrono::system_clock::time_point ktime_t;
+
+    enum Min_Ver { ZERO = 0 };
+    enum Maj_Ver { ONE = 1 };
     
     // A record header. Every 'data record' will have a versioned header to 
     // enable 
-    struct header_t
+    struct Header
     {
-        maj_ver     m_maj_ver; // major header version
-        min_ver     m_min_ver; // minor header version
+        Maj_Ver     m_maj_ver; // major header version
+        Min_Ver     m_min_ver; // minor header version
         std::size_t m_size; // count of bytes
         std::time_t m_creation_time; // time of record creation
     };
     
-    struct record_t
+    struct Record
     {
-        header_t            m_header;
+        Header				m_header;
         const std::byte*    m_data;
     };
     
-    struct file_header_t
+    struct StreamHeader
     {
         
         enum        file_structure { PLAIN_TEXT, CIPHER_TEXT, JSON, XML, YML, RAW_BYTES, BASE64 };
         
-        maj_ver         m_maj_ver;
-        min_ver         m_min_ver;
-        std::size_t     m_size;
-        std::time_t     m_creation_time;
+        Maj_Ver			m_maj_ver;
+        Min_Ver			m_min_ver;
+        uint64_t		m_size;
+        ktime_t			m_creation_time;
         uint64_t        m_record_count;
         file_structure  m_type;
+		std::string		m_stream_name;
+		uint16_t		m_year;
+		uint16_t		m_month;
+		uint16_t		m_day;
     };
 
 };
