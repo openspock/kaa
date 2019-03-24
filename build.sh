@@ -1,5 +1,6 @@
+mkdir build
+mkdir -p build/protos
+cd build
 export CXX=/usr/bin/clang++
-mkdir bin 
-cd bin
 cmake ..
 make

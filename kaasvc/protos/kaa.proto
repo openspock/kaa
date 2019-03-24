@@ -1,0 +1,27 @@
+// Copyright Kaa 2019
+//
+// MIT License
+
+syntax "proto3";
+
+package kaa;
+
+import "google/protobuf/Timestamp.proto";
+
+service kaa_data_access {
+
+  rpc write(google.protobuf.StringValue, event) returns evt_write_ack {}
+
+  message event {
+    bytes       key;            // the public key of the event owner
+    uint64      size_in_bytes;  // size of the event data in bytes 
+    Timestamp   creation_time;  // time when this event occured
+    bytes       data;           // event data in bytes
+  }
+
+  message event_ack {
+    uint64      size_received;  // size in bytes recorded for this event data
+    uint64      processed_time; // time, this event was processed by kaa
+    string      event_id;       // event id allocated by kaa
+  }
+}
