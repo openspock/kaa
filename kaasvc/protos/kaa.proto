@@ -2,26 +2,28 @@
 //
 // MIT License
 
-syntax "proto3";
+syntax = "proto3";
 
 package kaa;
 
-import "google/protobuf/Timestamp.proto";
+import "google/protobuf/timestamp.proto";
 
 service kaa_data_access {
 
-  rpc write(google.protobuf.StringValue, event) returns evt_write_ack {}
-
-  message event {
-    bytes       key;            // the public key of the event owner
-    uint64      size_in_bytes;  // size of the event data in bytes 
-    Timestamp   creation_time;  // time when this event occured
-    bytes       data;           // event data in bytes
-  }
-
-  message event_ack {
-    uint64      size_received;  // size in bytes recorded for this event data
-    uint64      processed_time; // time, this event was processed by kaa
-    string      event_id;       // event id allocated by kaa
-  }
+  rpc write(write_req) returns (write_res) {}
 }
+
+message write_req {
+  string                        stream = 1;         // the stream
+  bytes                         key = 2;            // the public key of the event owner
+  uint64                        size_in_bytes = 3;  // size of the event data in bytes 
+  google.protobuf.Timestamp     creation_time = 4;  // time when this event occured
+  bytes                         data = 5;           // event data in bytes
+}
+
+message write_res {
+  uint64      size_received = 1;  // size in bytes recorded for this event data
+  uint64      processed_time = 2; // time, this event was processed by kaa
+  string      event_id = 3;       // event id allocated by kaa
+}
+

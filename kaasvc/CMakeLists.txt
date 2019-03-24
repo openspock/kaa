@@ -12,13 +12,13 @@ include_directories(/usr/local/include)
 link_directories(/usr/local/lib)
 
 #set(PROTOBUF_PROTOC_EXECUTABLE "${`which protoc`}")
-set(PROTO_PATH "${CMAKE_SOURCE_DIR}/protos")
+set(PROTO_PATH "${CMAKE_SOURCE_DIR}/kaasvc/protos")
 set(KAA_PROTO "${PROTO_PATH}/kaa.proto")
-set(GENERATED_PROTOBUF_PATH "${CMAKE_BINARY_DIR}/protos")
+set(GENERATED_PROTOBUF_PATH "${CMAKE_BINARY_DIR}/kaasvc/protos")
 
-set(KAA_PB_CPP_FILE "${GENERATED_PROTOBUF_PATH}/kaa.pb.cpp")
+set(KAA_PB_CPP_FILE "${GENERATED_PROTOBUF_PATH}/kaa.pb.cc")
 set(KAA_PB_H_FILE "${GENERATED_PROTOBUF_PATH}/kaa.pb.h")
-set(KAA_GRPC_PB_CPP_FILE "${GENERATED_PROTOBUF_PATH}/kaa.grpc.pb.cpp")
+set(KAA_GRPC_PB_CPP_FILE "${GENERATED_PROTOBUF_PATH}/kaa.grpc.pb.cc")
 set(KAA_GRPC_PB_H_FILE "${GENERATED_PROTOBUF_PATH}/kaa.grpc.pb.h")
 add_custom_command(
     OUTPUT "${KAA_PB_H_FILE}"
