@@ -14,7 +14,7 @@ link_directories(/usr/local/lib)
 #set(PROTOBUF_PROTOC_EXECUTABLE "${`which protoc`}")
 set(PROTO_PATH "${CMAKE_SOURCE_DIR}/kaasvc/protos")
 set(KAA_PROTO "${PROTO_PATH}/kaa.proto")
-set(GENERATED_PROTOBUF_PATH "${CMAKE_BINARY_DIR}/kaasvc/protos")
+set(GENERATED_PROTOBUF_PATH "${CMAKE_BINARY_DIR}/kaasvc")
 
 set(KAA_PB_CPP_FILE "${GENERATED_PROTOBUF_PATH}/kaa.pb.cc")
 set(KAA_PB_H_FILE "${GENERATED_PROTOBUF_PATH}/kaa.pb.h")
@@ -42,8 +42,8 @@ add_custom_command(
 set(GENERATED_PROTOBUF_FILES ${KAA_PB_H_FILE} ${KAA_PB_CPP_FILE}
     ${KAA_GRPC_PB_H_FILE} ${KAA_GRPC_PB_CPP_FILE})
 
-file(GLOB_RECURSE INC_FILES src/**/*.h)
-file(GLOB_RECURSE SRC_FILES src/**/*.cpp)
+file(GLOB_RECURSE INC_FILES src/*.h)
+file(GLOB_RECURSE SRC_FILES src/*.cpp)
 
 add_custom_target(kaa_header ALL DEPENDS ${GENERATED_PROTOBUF_FILES})
 include_directories(${GENERATED_PROTOBUF_PATH})
